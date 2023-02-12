@@ -31,11 +31,19 @@ module "security_group" {
   secgr_protocol_eg = "-1"
 }
 
-module "private_subnet" {
+module "private_subnet_01" {
   source = "./subnet"
   subnet_cidr_block = "10.0.1.0/24"
   sub_availability_zone = "us-east-1a"
-  subnet_name = "private_subnet"
+  subnet_name = "private_subnet_01"
+  sub_vpc_id = module.my_vpc.vpc_id
+}
+
+module "private_subnet_02" {
+  source = "./subnet"
+  subnet_cidr_block = "10.0.2.0/24"
+  sub_availability_zone = "us-east-1b"
+  subnet_name = "private_subnet_02"
   sub_vpc_id = module.my_vpc.vpc_id
 }
 
@@ -45,7 +53,11 @@ module "private_route_table" {
   table_vpc_id = module.my_vpc.vpc_id
   table_destination_cidr_block = "0.0.0.0/0"
   table_gateway_id = module.nat_gateway.nat_gw_id
-  table_subnet_id = module.private_subnet.subnet_id
+  table_subnet_id = { id1 = module.private_subnet_01.subnet_id, id2 = module.private_subnet_02.subnet_id }
+  depends_on = [
+    module.private_subnet_01.subnet_id,
+    module.private_subnet_02.subnet_id
+  ]
 }
 
 module "public_subnet" {
@@ -62,9 +74,16 @@ module "public_route_table" {
   table_vpc_id = module.my_vpc.vpc_id
   table_destination_cidr_block = "0.0.0.0/0"
   table_gateway_id = module.internet_gateway.internet_gw_id
-  table_subnet_id = module.public_subnet.subnet_id
+  table_subnet_id = { id = module.public_subnet.subnet_id }
   depends_on = [
     module.public_subnet.subnet_id,
-    module.private_subnet.subnet_id
+    module.private_subnet_01.subnet_id,
+    module.private_subnet_02.subnet_id
   ]
+}
+
+module "eks" {
+  source = "./eks"
+  subnet_id_1 = module.private_subnet_01.subnet_id
+  subnet_id_2 = module.private_subnet_02.subnet_id  
 }
