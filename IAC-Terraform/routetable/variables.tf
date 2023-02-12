@@ -13,5 +13,6 @@ variable "table_gateway_id" {
 }
 
 variable "table_subnet_id" {
+  type = map
 }
 

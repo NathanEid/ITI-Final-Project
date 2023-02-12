@@ -13,9 +13,9 @@ resource "aws_route" "route" {
 }
 
 resource "aws_route_table_association" "subnet_association" {
-  # for_each = var.table_subnet_id
-  # subnet_id      = each.value
-  subnet_id = var.table_subnet_id
+  for_each = var.table_subnet_id
+  subnet_id      = each.value
+  # subnet_id = var.table_subnet_id
   route_table_id = aws_route_table.route_table.id
   depends_on = [aws_route_table.route_table]
 }
