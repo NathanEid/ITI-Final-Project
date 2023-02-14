@@ -3,3 +3,4 @@ IAC-Terraform/.terraform.lock.hcl
 IAC-Terraform/mykey.pem
 IAC-Terraform/terraform.tfstate
 IAC-Terraform/terraform.tfstate.backup
+terraform.tfstate
