@@ -44,7 +44,7 @@ resource "aws_eks_cluster" "devopsthehardway-eks" {
  vpc_config {
   subnet_ids = [var.subnet_id_1, var.subnet_id_2]
   endpoint_private_access = true
-  endpoint_public_access  = false
+  endpoint_public_access  = true
  }
 
  depends_on = [
@@ -97,8 +97,8 @@ resource "aws_eks_node_group" "worker-node-group" {
   node_group_name = "devopsthehardway-workernodes"
   node_role_arn  = aws_iam_role.workernodes.arn
   subnet_ids   = [var.subnet_id_1, var.subnet_id_2]
-  instance_types = ["t2.micro"]
-  disk_size = 10
+  instance_types = ["t2.small"]
+  disk_size = 20
 
 #   remote_access {
 #     ec2_ssh_key = "mykey"
