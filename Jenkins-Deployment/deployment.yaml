@@ -21,7 +21,7 @@ spec:
       serviceAccountName: jenkins-admin
       containers:
         - name: jenkins
-          image: nathaneid/my-jenkins:v1
+          image: nathaneid/my-jenkins:v2
           ports:
             - name: httpport
               containerPort: 8080
@@ -45,4 +45,4 @@ spec:
   ports:
     - port: 8080
       targetPort: 8080
-      nodePort: 32082
+#      nodePort: 32082
