@@ -98,7 +98,7 @@ resource "aws_eks_node_group" "worker-node-group" {
   node_role_arn  = aws_iam_role.workernodes.arn
   subnet_ids   = [var.subnet_id_1, var.subnet_id_2]
   instance_types = ["t2.small"]
-  disk_size = 20
+  disk_size = 40
 
 #   remote_access {
 #     ec2_ssh_key = "mykey"
@@ -107,7 +107,7 @@ resource "aws_eks_node_group" "worker-node-group" {
  
   scaling_config {
    desired_size = 1
-   max_size   = 1
+   max_size   = 2
    min_size   = 1
   }
  
