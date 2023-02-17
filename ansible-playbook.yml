@@ -1,0 +1,15 @@
+---
+- name: deploy jenkins
+  hosts: all
+  become: yes
+  tasks:
+    - name: Copy jenkins files
+      copy:
+        src: "./Jenkins-Deployment"
+        dest: "/home/nathan"
+
+    - name: configure cluster
+      command: aws eks --region us-east-1 update-kubeconfig --name devopsthehardway-cluster
+
+    - name: deploy jenkins
+      command: kubectl apply -f "/home/nathan/Jenkins-Deployment"
