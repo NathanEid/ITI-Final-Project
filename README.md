@@ -21,6 +21,7 @@
   - Kubernetes
   - Docker
   - Jenkins
+  - Ansible
   
 * Get Started:
   - Build Infrastructure:
