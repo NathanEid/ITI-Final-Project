@@ -87,3 +87,18 @@ module "eks" {
   subnet_id_1 = module.private_subnet_01.subnet_id
   subnet_id_2 = module.private_subnet_02.subnet_id  
 }
+
+module "ec2-controller" {
+  source = "./ec2"
+  ec2_ami_id = "ami-06878d265978313ca"
+  ec2_instance_type = "t2.micro"
+  ec2_name = "ec2-controller"
+  ec2_public_ip = true
+  ec2_subnet_ip = module.public_subnet.subnet_id
+  ec2_security_gr = [ module.security_group.secgr_id ]
+  ec2_key_name = "mykey"
+  depends_on = [
+    module.public_subnet.subnet_id,
+    module.public_route_table.route_table_id,
+  ]
+}
