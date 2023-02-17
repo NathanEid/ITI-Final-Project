@@ -22,8 +22,8 @@ variable "secgr_protocol_in" {
 variable "secgr_protocol_eg" {
 }
 
-variable "secgr_description" { 
+variable "secgr_description" {
 }
 
-variable "secgr_vpc_id" { 
+variable "secgr_vpc_id" {
 }

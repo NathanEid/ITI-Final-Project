@@ -8,7 +8,7 @@
         src: "./Jenkins-Deployment"
         dest: "/home/nathan"
 
-    - name: configure cluster
+    - name: connect to the  cluster
       command: aws eks --region us-east-1 update-kubeconfig --name devopsthehardway-cluster
 
     - name: deploy jenkins

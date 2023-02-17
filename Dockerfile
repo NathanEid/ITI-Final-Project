@@ -1,3 +1,4 @@
+# the docker file that create my customized jenkins
 FROM jenkins/jenkins:lts
 USER root
 #install docker & git
